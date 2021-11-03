@@ -5,14 +5,14 @@ on:
     types: [labeled]
 
 env:
-  DOCKER_IMAGE_NAME: lesson-11-demo
+  DOCKER_IMAGE_NAME: iamcucusa-azure-ttt
   IMAGE_REGISTRY_URL: docker.pkg.github.com
   #################################################
   ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
   #################################################
   #################################################
   ### REPLACE USERNAME WITH GH USERNAME         ###
-  AZURE_WEBAPP_NAME: lesson-11-demo-app
+  AZURE_WEBAPP_NAME: iamcucusa-ttt-app
   #################################################
 
 jobs:
