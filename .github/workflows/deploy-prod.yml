@@ -1,19 +1,19 @@
 name: Production deployment
 
-on: 
+on:
   push:
     branches:
       - main
 
 env:
-  DOCKER_IMAGE_NAME: iamcucusa-azure-ttt # Must not exist as a package associated with a different repo!
+  DOCKER_IMAGE_NAME: lesson-11-demo # Must not exist as a package associated with a different repo!
   IMAGE_REGISTRY_URL: docker.pkg.github.com
   #################################################
   ### USER PROVIDED VALUES ARE REQUIRED BELOW   ###
   #################################################
   #################################################
   ### REPLACE USERNAME WITH GH USERNAME         ###
-  AZURE_WEBAPP_NAME: iamcucusa-ttt-app
+  AZURE_WEBAPP_NAME: lesson-11-demo-app
   #################################################
 
 jobs:
@@ -22,14 +22,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: npm install and build webpack
-        run: |
-          npm install
-          npm run build
+      # Install Dependencies
+      - name: Install Dependencies
+        run: npm install
+      # Linting
+      - name: Lint Code
+        run: npm run lint
+      # Testing
+      - name: Unit Test
+        run: npm run test
+      # Build
+      - name: Build
+        run: npm run build
       - uses: actions/upload-artifact@main
         with:
-          name: webpack artifacts
-          path: public/
+          name: my-artifact
+          path: dist/
 
   Build-Docker-Image:
     runs-on: ubuntu-latest
@@ -43,7 +51,7 @@ jobs:
         uses: actions/download-artifact@main
         with:
           name: webpack artifacts
-          path: public
+          path: dist
 
       - name: create image and store in Packages
         uses: mattdavis0351/actions/docker-gpr@1.3.0
