@@ -3,6 +3,9 @@ name: Stage the app
 on: 
   pull_request:
     types: [labeled]
+  push:
+    branches:
+      - update-workflow
 
 env:
   DOCKER_IMAGE_NAME: iamcucusa-azure-ttt
